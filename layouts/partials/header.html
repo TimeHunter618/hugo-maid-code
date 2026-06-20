@@ -1,4 +1,8 @@
 {{- $params := .Site.Params -}}
+{{- /* 获取风格化的 banner */ -}}
+{{- $styleBanner := partial "helpers/styleBanner.html" . -}}
+{{- $defaultBanner := .Site.Params.banner -}}
+{{- $finalBanner := $styleBanner | default $defaultBanner -}}
 <div id="header-nav">
   <nav id="main-nav" aria-label="Primary navigation">
     {{- range .Site.Params.menu -}}
@@ -144,13 +148,13 @@
                 <source media="{{ .media }}" srcset="{{ .src | relURL }}">
               {{- end -}}
             {{- end -}}
-            <img {{ if .Site.Params.material_theme.enable }}crossorigin="anonymous"{{ end }} fetchpriority="high" src="{{ .Site.Params.banner | relURL }}" alt="{{ .Title }}">
+            <img {{ if .Site.Params.material_theme.enable }}crossorigin="anonymous"{{ end }} fetchpriority="high" src="{{ $finalBanner | relURL }}" alt="{{ .Title }}">
           {{- end -}}
         </picture>
         {{- if .Site.Params.banner_srcset.enable -}}
           <img alt="{{ .Title }}" style="visibility: hidden;">
         {{- else -}}
-          <img {{ if .Site.Params.material_theme.enable }}crossorigin="anonymous"{{ end }} fetchpriority="high" src="{{ .Site.Params.banner | relURL }}" alt="{{ .Title }}">
+          <img {{ if .Site.Params.material_theme.enable }}crossorigin="anonymous"{{ end }} fetchpriority="high" src="{{ $finalBanner | relURL }}" alt="{{ .Title }}">
         {{- end -}}
       {{- end -}}
     {{- else -}}
@@ -166,13 +170,13 @@
               <source media="{{ .media }}" srcset="{{ .src | relURL }}">
             {{- end -}}
           {{- end -}}
-          <img {{ if .Site.Params.material_theme.enable }}crossorigin="anonymous"{{ end }} fetchpriority="high" src="{{ .Site.Params.banner | relURL }}" alt="{{ .Title }}">
+          <img {{ if .Site.Params.material_theme.enable }}crossorigin="anonymous"{{ end }} fetchpriority="high" src="{{ $finalBanner | relURL }}" alt="{{ .Title }}">
         {{- end -}}
       </picture>
       {{- if .Site.Params.banner_srcset.enable -}}
         <img alt="{{ .Title }}" style="visibility: hidden;">
       {{- else -}}
-        <img {{ if .Site.Params.material_theme.enable }}crossorigin="anonymous"{{ end }} fetchpriority="high" src="{{ .Site.Params.banner | relURL }}" alt="{{ .Title }}">
+        <img {{ if .Site.Params.material_theme.enable }}crossorigin="anonymous"{{ end }} fetchpriority="high" src="{{ $finalBanner | relURL }}" alt="{{ .Title }}">
       {{- end -}}
     {{- end -}}
   {{- end -}}

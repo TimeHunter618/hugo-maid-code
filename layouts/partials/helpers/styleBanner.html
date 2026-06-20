@@ -1,0 +1,14 @@
+{{- /* 获取当前风格的背景图片 */ -}}
+{{- $coversData := hugo.Data.covers -}}
+{{- $banner := "" -}}
+
+{{- /* 检查是否使用新的多风格配置 */ -}}
+{{- if and $coversData $coversData.styles $coversData.active -}}
+  {{- $activeStyle := $coversData.active -}}
+  {{- $styleData := index $coversData.styles $activeStyle -}}
+  {{- if and $styleData $styleData.banner -}}
+    {{- $banner = $styleData.banner -}}
+  {{- end -}}
+{{- end -}}
+
+{{ $banner -}}
