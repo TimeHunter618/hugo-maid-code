@@ -1,4 +1,4 @@
----
+﻿---
 title: RAG 检索增强生成技术详解
 description: 从基础原理到高级优化，全面掌握检索增强生成（RAG）的核心技术与实践方法
 date: 2026-06-19T03:20:00+08:00
@@ -11,7 +11,7 @@ tags:
   - 向量数据库
   - 知识库
 categories:
-  - 人工智能
+  - RAG全流程
   - 技术分享
 math: true
 mermaid: true

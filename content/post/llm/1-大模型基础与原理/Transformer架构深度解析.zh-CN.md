@@ -1,4 +1,4 @@
----
+﻿---
 title: Transformer 架构深度解析
 description: 从自注意力机制到位置编码，全面拆解 Transformer 的核心组件与实现细节
 date: 2026-06-19T03:10:00+08:00
@@ -10,7 +10,7 @@ tags:
   - 深度学习
   - 神经网络
 categories:
-  - 人工智能
+  - 大模型基础与原理
   - 技术分享
 math: true
 mermaid: true

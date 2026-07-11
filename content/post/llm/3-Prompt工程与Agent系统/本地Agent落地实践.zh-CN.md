@@ -1,4 +1,4 @@
----
+﻿---
 title: 本地 Agent 落地实践
 description: 从 Markdown 配置驱动到本地存储方案，全面掌握 LLM Agent 的本地化部署与持久化实现
 date: 2026-05-05T10:00:00+08:00
@@ -13,7 +13,7 @@ tags:
   - SQLite
   - Prompt 工程与 Agent 系统
 categories:
-  - 人工智能
+  - Prompt工程与Agent系统
   - 技术分享
 math: true
 mermaid: true

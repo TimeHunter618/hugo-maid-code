@@ -1,4 +1,4 @@
----
+﻿---
 title: SpringAI 如何接入多种模型（OpenAI、DeepSeek、GLM）？
 description: 通过统一抽象层接入 OpenAI、DeepSeek、GLM 等多种模型，实现模型可插拔切换
 date: 2026-06-15T10:00:00+08:00
@@ -10,8 +10,8 @@ tags:
   - 多模型
   - 后端工程
 categories:
-  - 人工智能
   - 面试题
+  - 技术分享
 math: true
 mermaid: true
 photos:

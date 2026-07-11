@@ -1,4 +1,4 @@
----
+﻿---
 title: API 设计与限流熔断
 description: RESTful API 设计规范、限流策略、熔断降级、重试机制——构建健壮的 AI 服务后端
 date: 2026-06-05T10:00:00+08:00
@@ -11,7 +11,7 @@ tags:
   - 熔断
   - 后端工程
 categories:
-  - 人工智能
+  - 后端与AI工程
   - 技术分享
 math: true
 mermaid: true

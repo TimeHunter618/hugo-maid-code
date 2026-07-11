@@ -1,4 +1,4 @@
----
+﻿---
 title: Agent 开发与多 Agent 协作
 description: 从单 Agent 架构到多 Agent 协作系统，全面掌握 LLM Agent 的设计模式与工程实践
 date: 2025-12-01T10:00:00+08:00
@@ -11,7 +11,7 @@ tags:
   - LangChain
   - 自动化
 categories:
-  - 人工智能
+  - Prompt工程与Agent系统
   - 技术分享
 math: true
 mermaid: true

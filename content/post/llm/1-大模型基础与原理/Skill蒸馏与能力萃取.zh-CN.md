@@ -1,4 +1,4 @@
----
+﻿---
 title: Skill 蒸馏与能力萃取技术
 description: 从能力识别到精准迁移，探索大语言模型特定能力的萃取、蒸馏与复用方法
 date: 2025-11-08T10:00:00+08:00
@@ -11,7 +11,7 @@ tags:
   - Agent
   - 能力迁移
 categories:
-  - 人工智能
+  - 大模型基础与原理
   - 技术分享
 math: true
 mermaid: true

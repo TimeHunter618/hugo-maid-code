@@ -1,4 +1,4 @@
----
+﻿---
 title: Agent 工具调用失败如何处理？
 description: 从重试策略到降级方案再到超时熔断，系统掌握 Agent 工具调用的容错机制
 date: 2026-06-05T10:00:00+08:00
@@ -10,8 +10,8 @@ tags:
   - 工具调用
   - 容错
 categories:
-  - 人工智能
   - 面试题
+  - 技术分享
 math: true
 mermaid: true
 photos:

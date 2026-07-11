@@ -1,4 +1,4 @@
----
+﻿---
 title: Spring Boot + SpringAI 完整集成
 description: 从项目搭建到模型调用、流式响应、Function Calling，完整实践 SpringAI 集成
 date: 2026-06-01T10:00:00+08:00
@@ -10,7 +10,7 @@ tags:
   - Spring Boot
   - 后端工程
 categories:
-  - 人工智能
+  - 后端与AI工程
   - 技术分享
 math: true
 mermaid: true

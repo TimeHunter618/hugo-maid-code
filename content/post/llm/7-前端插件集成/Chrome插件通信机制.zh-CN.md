@@ -1,4 +1,4 @@
----
+﻿---
 title: Chrome Extension 通信机制详解
 description: content script、background service worker、popup 三方通信架构全解析
 date: 2026-06-01T10:00:00+08:00
@@ -10,7 +10,7 @@ tags:
   - content script
   - 通信机制
 categories:
-  - 人工智能
+  - 前端插件集成
   - 技术分享
 math: true
 mermaid: true

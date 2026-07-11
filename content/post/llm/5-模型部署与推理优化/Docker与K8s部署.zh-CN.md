@@ -1,4 +1,4 @@
----
+﻿---
 title: Docker 与 Kubernetes 部署
 description: 从 Docker 单机到 Kubernetes 集群，大模型容器化部署完整实践
 date: 2026-06-05T10:00:00+08:00
@@ -10,7 +10,7 @@ tags:
   - Kubernetes
   - 容器化部署
 categories:
-  - 人工智能
+  - 模型部署与推理优化
   - 技术分享
 math: true
 mermaid: true

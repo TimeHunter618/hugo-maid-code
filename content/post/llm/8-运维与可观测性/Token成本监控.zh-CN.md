@@ -1,4 +1,4 @@
----
+﻿---
 title: Token 成本监控与优化
 description: API 费用追踪、预算告警、成本优化策略——AI 系统的 FinOps 实践
 date: 2026-06-10T10:00:00+08:00
@@ -10,7 +10,7 @@ tags:
   - Token优化
   - FinOps
 categories:
-  - 人工智能
+  - 运维与可观测性
   - 技术分享
 math: true
 mermaid: true

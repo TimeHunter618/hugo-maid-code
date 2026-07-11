@@ -1,4 +1,4 @@
----
+﻿---
 title: A/B 测试与持续迭代流程
 description: 在线实验设计、效果监控、灰度发布——AI 产品的数据驱动迭代方法论
 date: 2026-06-10T10:00:00+08:00
@@ -10,7 +10,7 @@ tags:
   - 效果监控
   - 迭代流程
 categories:
-  - 人工智能
+  - 数据与评估
   - 技术分享
 math: true
 mermaid: true

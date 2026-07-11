@@ -1,4 +1,4 @@
----
+﻿---
 title: 多角色 Agent、工具调用与状态管理
 description: 从角色设计到工具编排再到状态机管理，深入掌握多角色 Agent 系统的工程实现
 date: 2026-04-10T10:00:00+08:00
@@ -12,7 +12,7 @@ tags:
   - 状态管理
   - Prompt 工程与 Agent 系统
 categories:
-  - 人工智能
+  - Prompt工程与Agent系统
   - 技术分享
 math: true
 mermaid: true
