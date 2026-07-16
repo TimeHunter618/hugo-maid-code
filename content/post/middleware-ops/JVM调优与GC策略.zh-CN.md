@@ -11,7 +11,7 @@ tags:
   - Arthas
 categories:
   - 性能调优
-  - 技术分�
+  - 技术分享
 math:  true
 mermaid: true
 photos:

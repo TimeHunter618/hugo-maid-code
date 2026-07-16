@@ -6,12 +6,12 @@ lastmod: 2023-11-26T02:36:10+08:00
 weight: 7
 tags:
   - ATS
-  - 轨道交�
+  - 轨道交
   - 控制命令
   - 信号控制
 categories:
-  - 轨道交�
-  - 技术分�
+  - 轨道交
+  - 技术分享
 mermaid:  true
 photos:
   - https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1920&q=80

@@ -10,7 +10,7 @@ tags:
   - AMQP
 categories:
   - 消息队列
-  - 技术分�
+  - 技术分享
 math:  true
 mermaid: true
 photos:

@@ -5,11 +5,11 @@ date: 2022-09-07T12:48:07+08:00
 lastmod: 2022-09-07T12:48:07+08:00
 tags:
   - ATS
-  - 轨道交�
+  - 轨道交
   - 列车自动监控
 categories:
-  - 轨道交�
-  - 技术分�
+  - 轨道交
+  - 技术分享
 mermaid:  true
 photos:
   - https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1920&q=80

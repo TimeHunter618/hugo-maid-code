@@ -1,79 +1,79 @@
-﻿???---
-title: SpringAI ��ν������ģ�ͣ�OpenAI��DeepSeek��GLM����
-description: ͨ��ͳһ�������� OpenAI��DeepSeek��GLM �ȶ���ģ�ͣ�ʵ��ģ�Ϳɲ���л�
+﻿---
+title: SpringAI νģͣOpenAIDeepSeekGLM
+description: ͨͳһ OpenAIDeepSeekGLM ȶģͣʵģͿɲл
 date: 2023-10-13T20:20:32+08:00
 lastmod: 2023-10-13T20:20:32+08:00
 weight: 4
 tags:
-  - ����
+  - 
   - SpringAI
-  - ��ģ��
-  - ��˹���
+  - ģ
+  - ˹
 categories:
-  - ������
-  - ��������
+  - 
+  - 
 math: true
 mermaid: true
 photos:
   - https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1920&q=80
 ---
 
-## ���Գ�������
+## Գ
 
-> **���Թ�**�����ǵ�ҵ����Ҫ�õ����ִ�ģ�͡����������� DeepSeek ���ɱ������������� GPT-4o ��Ч�������ĳ����� GLM�����Ǻ���� Java ����ջ����û���˽�� SpringAI�������һ�� Spring Boot ��Ŀ��ͬʱ���� OpenAI��DeepSeek��GLM ����ģ�ͣ����ܸ����������Ͷ�̬�л���
+> **Թ**ǵҵҪõִģ͡ DeepSeek ɱ GPT-4o Чĳ GLMǺ Java ջû˽ SpringAIһ Spring Boot Ŀͬʱ OpenAIDeepSeekGLM ģܸͣͶ̬л
 
-����⿼����� **��� AI ���̻�����**������ҵ��Ӧ���У�"��ģ�͹���"��һ���Ʋ����Ļ��⣺��ͬģ�͸������ӣ��ɱ���Ч�����ӳ١��Ϲ�Ҫ�������ͬ��ҵ����Ҫ�����ϡ�SpringAI ��Ϊ Spring �ٷ��� AI ���ɿ�ܣ��ṩ��һ�����ŵĳ�����������Щ���⡣
+⿼ ** AI ̻**ҵӦУ"ģ͹"һƲĻ⣺ͬģ͸ӣɱЧӳ١ϹҪͬҵҪϡSpringAI Ϊ Spring ٷ AI ɿܣṩһŵĳЩ⡣
 
-���Թ����������ǣ��㲻������ SpringAI �� API������� **ģ�ͳ������**��**�� Bean ע�����**��**·�ɲ���** �Ⱥ�˹��̺��ĸ��
+Թǣ㲻 SpringAI  API **ģͳ**** Bean ע****·ɲ** Ⱥ˹̺ĸ
 
-## ���������Ϊʲô��Ҫ�������ģ��
+## ΪʲôҪģ
 
-### ��ģ�͵�ҵ��������
+### ģ͵ҵ
 
 ```mermaid
 graph TD
-    A[��ģ�ͽ�������] --> B[�ɱ��Ż�]
-    A --> C[Ч������]
-    A --> D[���ֱ���]
-    A --> E[�Ϲ�Ҫ��]
+    A[ģͽ] --> B[ɱŻ]
+    A --> C[Ч]
+    A --> D[ֱ]
+    A --> E[ϹҪ]
 
-    B --> B1[�������ñ���ģ��]
-    B --> B2[����������ù�ģ��]
-    B --> B3[�� Token �ɱ���̬ѡ��]
+    B --> B1[ñģ]
+    B --> B2[ùģ]
+    B --> B3[ Token ɱ̬ѡ]
 
-    C --> C1[��ͬģ���ó���ͬ����]
-    C --> C2[���������� DeepSeek-Coder]
-    C --> C3[Ӣ�������� GPT-4o]
-    C --> C4[���ĶԻ��� GLM]
+    C --> C1[ͬģóͬ]
+    C --> C2[ DeepSeek-Coder]
+    C --> C3[Ӣ GPT-4o]
+    C --> C4[ĶԻ GLM]
 
-    D --> D1[��ģ�Ͳ�����ʱ�Զ��л�]
-    D --> D2[���ⵥ������]
+    D --> D1[ģͲʱԶл]
+    D --> D2[ⵥ]
 
-    E --> E1[����ҵ���ù���ģ��]
-    E --> E2[����ҵ���� OpenAI]
+    E --> E1[ҵùģ]
+    E --> E2[ҵ OpenAI]
 ```
 
-### ��ͬģ�ͶԱ�
+### ͬģͶԱ
 
-| ģ�� | �ṩ�� | ���� | ����۸� | ���ó��� |
+| ģ | ṩ |  | ۸ | ó |
 |------|--------|------|----------|----------|
-| GPT-4o | OpenAI | �ۺ�������ǿ���������� | $2.5/M tokens | ���������Ӣ�ĳ��� |
-| DeepSeek-V3 | DeepSeek | �Լ۱ȼ��ߣ���������ǿ | ��1/M tokens | �������ɡ��ճ��Ի� |
-| GLM-4 | ���� AI | ����������㣬���ںϹ� | ��5/M tokens | ���ĳ���������ҵ�� |
-| Claude 3.5 | Anthropic | ���ı�����ȫ�Ժ� | $3/M tokens | �ĵ��������Ϲ泡�� |
+| GPT-4o | OpenAI | ۺǿ | $2.5/M tokens | Ӣĳ |
+| DeepSeek-V3 | DeepSeek | Լ۱ȼߣǿ | 1/M tokens | ɡճԻ |
+| GLM-4 |  AI | 㣬ںϹ | 5/M tokens | ĳҵ |
+| Claude 3.5 | Anthropic | ıȫԺ | $3/M tokens | ĵϹ泡 |
 
-> **�ɱ��Ա�ʵ��**������ 100 �� Token ������GPT-4o Լ ��18��DeepSeek-V3 Լ ��1��GLM-4 Լ ��5�����ڸ߲�����ҵ��ϵͳ������ѡ��ģ�Ϳ��Խ�ʡ 80% ���ϵ� API �ɱ���
+> **ɱԱʵ** 100  Token GPT-4o Լ 18DeepSeek-V3 Լ 1GLM-4 Լ 5ڸ߲ҵϵͳѡģͿԽʡ 80% ϵ API ɱ
 
-## SpringAI �ܹ����
+## SpringAI ܹ
 
-### ���ĳ����
+### ĳ
 
-SpringAI �������ѧ�� **"һ�� API������ģ��"**��ͨ��ͳһ�ĳ�������β�ͬģ���ṩ�̵Ĳ��죺
+SpringAI ѧ **"һ APIģ"**ͨͳһĳβͬģṩ̵Ĳ죺
 
 ```mermaid
 graph TD
-    A[ҵ�����] --> B[ChatClient ͳһ�ӿ�]
-    B --> C[ChatModel �����]
+    A[ҵ] --> B[ChatClient ͳһӿ]
+    B --> C[ChatModel ]
 
     C --> D[OpenAiChatModel]
     C --> E[DeepSeekChatModel]
@@ -81,47 +81,47 @@ graph TD
     C --> G[OllamaChatModel]
 
     D --> D1[OpenAI API]
-    E --> E1[DeepSeek API<br/>OpenAI ����]
-    F --> F1[���� GLM API]
-    G --> G1[Ollama ���ط���]
+    E --> E1[DeepSeek API<br/>OpenAI ]
+    F --> F1[ GLM API]
+    G --> G1[Ollama ط]
 
     style B fill:#e3f2fd
     style C fill:#e8f5e9
 ```
 
-### �ؼ����
+### ؼ
 
-| ��� | ���� | ˵�� |
+|  |  | ˵ |
 |------|------|------|
-| `ChatClient` | ͳһ��� | ��ʽ API������ RestClient |
-| `ChatModel` | ģ�ͳ���ӿ� | �ײ�ģ�ͽӿڣ�ÿ���ṩ��һ��ʵ�� |
-| `ChatLanguageModel` | ͬ��ģ�ͽӿ� | �����Ի����� |
-| `StreamingChatLanguageModel` | ��ʽģ�ͽӿ� | ֧�� SSE ��ʽ��� |
-| `EmbeddingModel` | ����ģ�ͽӿ� | �ı������� |
-| `AutoConfiguration` | �Զ����� | ÿ���ṩ��һ�� starter |
+| `ChatClient` | ͳһ | ʽ API RestClient |
+| `ChatModel` | ģͳӿ | ײģͽӿڣÿṩһʵ |
+| `ChatLanguageModel` | ͬģͽӿ | Ի |
+| `StreamingChatLanguageModel` | ʽģͽӿ | ֧ SSE ʽ |
+| `EmbeddingModel` | ģͽӿ | ı |
+| `AutoConfiguration` | Զ | ÿṩһ starter |
 
-### ��ģ�� Bean ע�����
+### ģ Bean ע
 
-SpringAI ͨ�� Spring ������װ����ƣ�Ϊÿ���ṩ�̴��������� `ChatModel` Bean������Ҫͬʱʹ�ö��ģ��ʱ���ؼ����� **������ֺ͹�����Щ Bean**��
+SpringAI ͨ Spring װƣΪÿṩ̴ `ChatModel` BeanҪͬʱʹöģʱؼ **ֺ͹Щ Bean**
 
 ```mermaid
 graph LR
-    A[Spring ����] --> B["OpenAiChatModel Bean"]
+    A[Spring ] --> B["OpenAiChatModel Bean"]
     A --> C["ZhiPuAiChatModel Bean"]
     A --> D["OllamaChatModel Bean"]
 
-    E[ҵ��·�ɲ�] --> B
+    E[ҵ·ɲ] --> B
     E --> C
     E --> D
 
     F[ChatClient.Builder] --> E
 
-    style E fill:#fff3e0
+    style E fill:#f3e0
 ```
 
-## ʵ�٣���������ģ��
+## ʵ٣ģ
 
-### ��Ŀ��������
+### Ŀ
 
 ```xml
 <!-- pom.xml -->
@@ -145,13 +145,13 @@ graph LR
         </dependencies>
     </dependencyManagement>
 
-    <!-- SpringAI OpenAI��DeepSeek Ҳ�ô���������Ϊ���� OpenAI �ӿڣ� -->
+    <!-- SpringAI OpenAIDeepSeek ҲôΪ OpenAI ӿڣ -->
     <dependency>
         <groupId>org.springframework.ai</groupId>
         <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
     </dependency>
 
-    <!-- SpringAI ���� GLM -->
+    <!-- SpringAI  GLM -->
     <dependency>
         <groupId>org.springframework.ai</groupId>
         <artifactId>spring-ai-zhipuai-spring-boot-starter</artifactId>
@@ -159,13 +159,13 @@ graph LR
 </dependencies>
 ```
 
-### ��ģ������
+### ģ
 
 ```yaml
 # application.yml
 spring:
   ai:
-    # OpenAI ���ã�GPT-4o��
+    # OpenAI ãGPT-4o
     openai:
       api-key: ${OPENAI_API_KEY}
       base-url: https://api.openai.com
@@ -175,7 +175,7 @@ spring:
           temperature: 0.7
           max-tokens: 4096
 
-    # ���� GLM ����
+    #  GLM 
     zhi-pu-ai:
       api-key: ${ZHIPU_API_KEY}
       chat:
@@ -184,7 +184,7 @@ spring:
           temperature: 0.7
           max-tokens: 4096
 
-# �Զ����ģ�����ã�DeepSeek ͨ�� OpenAI ���ݽӿڣ�
+# ԶģãDeepSeek ͨ OpenAI ݽӿڣ
 multi-model:
   deepseek:
     api-key: ${DEEPSEEK_API_KEY}
@@ -192,9 +192,9 @@ multi-model:
     model: deepseek-chat
     temperature: 0.7
   routing:
-    # Ĭ��ģ��
+    # Ĭģ
     default: deepseek
-    # ����������·��
+    # ·
     task-routing:
       complex-reasoning: openai
       code-generation: deepseek
@@ -202,7 +202,7 @@ multi-model:
       general: deepseek
 ```
 
-### �����ࣺ�����ģ�� Bean
+### ࣺģ Bean
 
 ```java
 package com.example.ai.config;
@@ -219,8 +219,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
 
 /**
- * ��ģ��������
- * Ϊÿ��ģ���ṩ�̴��������� ChatModel Bean
+ * ģ
+ * Ϊÿģṩ̴ ChatModel Bean
  */
 @Configuration
 public class MultiModelConfig {
@@ -246,14 +246,14 @@ public class MultiModelConfig {
                 .build();
     }
 
-    // ========== DeepSeek (ͨ�� OpenAI ���ݽӿ�) ==========
+    // ========== DeepSeek (ͨ OpenAI ݽӿ) ==========
     @Bean
     @Qualifier("deepseekChatModel")
     public OpenAiChatModel deepseekChatModel(
             @Value("${multi-model.deepseek.api-key}") String apiKey,
             @Value("${multi-model.deepseek.base-url}") String baseUrl) {
         OpenAiApi deepSeekApi = OpenAiApi.builder()
-                .baseUrl(baseUrl)   // DeepSeek �� OpenAI ���ݶ˵�
+                .baseUrl(baseUrl)   // DeepSeek  OpenAI ݶ˵
                 .apiKey(apiKey)
                 .restClientBuilder(RestClient.builder())
                 .build();
@@ -267,7 +267,7 @@ public class MultiModelConfig {
                 .build();
     }
 
-    // ========== GLM (����) ==========
+    // ========== GLM () ==========
     @Bean
     @Qualifier("glmChatModel")
     public ZhiPuAiChatModel glmChatModel(
@@ -278,7 +278,7 @@ public class MultiModelConfig {
 }
 ```
 
-### ģ��·�ɲ���
+### ģ·ɲ
 
 ```java
 package com.example.ai.routing;
@@ -290,7 +290,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * ģ��·������������������ѡ����ʵ�ģ��
+ * ģ·ѡʵģ
  */
 @Component
 public class ModelRouter {
@@ -307,7 +307,7 @@ public class ModelRouter {
                 "deepseek", deepseekModel,
                 "glm", glmModel
         );
-        // �������� �� ģ��ӳ��
+        //   ģӳ
         this.taskRouting = Map.of(
                 "complex-reasoning", "openai",
                 "code-generation", "deepseek",
@@ -317,7 +317,7 @@ public class ModelRouter {
     }
 
     /**
-     * ������������ѡ��ģ��
+     * ѡģ
      */
     public ChatModel routeByTask(String taskType) {
         String modelKey = taskRouting.getOrDefault(taskType, "deepseek");
@@ -325,7 +325,7 @@ public class ModelRouter {
     }
 
     /**
-     * �������������Զ��ж���������
+     * Զж
      */
     public ChatModel routeByContent(String userInput) {
         String taskType = classifyTask(userInput);
@@ -333,14 +333,14 @@ public class ModelRouter {
     }
 
     /**
-     * ��������ࣨʵ���п��� LLM ����ͼʶ��
+     * ࣨʵп LLM ͼʶ
      */
     private String classifyTask(String input) {
         String lower = input.toLowerCase();
         if (input.matches(".*[\\{\\}].*|.*def .*|.*public class.*|.*function.*")) {
             return "code-generation";
         }
-        if (lower.contains("����") || lower.contains("֤��") || lower.contains("����")) {
+        if (lower.contains("") || lower.contains("֤") || lower.contains("")) {
             return "complex-reasoning";
         }
         if (input.chars().filter(c -> c > 127).count() > input.length() * 0.5) {
@@ -350,7 +350,7 @@ public class ModelRouter {
     }
 
     /**
-     * ָ��ģ������
+     * ָģ
      */
     public ChatModel getModel(String modelName) {
         return chatModels.getOrDefault(modelName, chatModels.get("deepseek"));
@@ -358,7 +358,7 @@ public class ModelRouter {
 }
 ```
 
-### ͳһ�����
+### ͳһ
 
 ```java
 package com.example.ai.service;
@@ -379,7 +379,7 @@ public class MultiModelChatService {
     }
 
     /**
-     * ����������·�ɶԻ�
+     * ·ɶԻ
      */
     public String chat(String userInput, String taskType) {
         ChatModel model = modelRouter.routeByTask(taskType);
@@ -388,7 +388,7 @@ public class MultiModelChatService {
     }
 
     /**
-     * �Զ�ʶ����������
+     * Զʶ
      */
     public String chatAuto(String userInput) {
         ChatModel model = modelRouter.routeByContent(userInput);
@@ -397,7 +397,7 @@ public class MultiModelChatService {
     }
 
     /**
-     * ָ��ģ�ͶԻ�
+     * ָģͶԻ
      */
     public String chatWithModel(String userInput, String modelName) {
         ChatModel model = modelRouter.getModel(modelName);
@@ -406,7 +406,7 @@ public class MultiModelChatService {
     }
 
     /**
-     * ��ʽ���
+     * ʽ
      */
     public Flux<String> streamChat(String userInput, String taskType) {
         ChatModel model = modelRouter.routeByTask(taskType);
@@ -416,7 +416,7 @@ public class MultiModelChatService {
     }
 
     /**
-     * ģ�ͽ�������ģ��ʧ��ʱ�Զ��л�����ģ��
+     * ģͽģʧʱԶлģ
      */
     public String chatWithFallback(String userInput, String primaryModel) {
         String[] fallbackChain = switch (primaryModel) {
@@ -429,15 +429,15 @@ public class MultiModelChatService {
             try {
                 return chatWithModel(userInput, modelName);
             } catch (Exception e) {
-                System.err.println("ģ�� " + modelName + " ����ʧ��: " + e.getMessage());
+                System.err.println("ģ " + modelName + " ʧ: " + e.getMessage());
             }
         }
-        return "��Ǹ������ģ�;������ã����Ժ����ԡ�";
+        return "Ǹģ;ãԺԡ";
     }
 }
 ```
 
-### Controller ��
+### Controller 
 
 ```java
 package com.example.ai.controller;
@@ -455,34 +455,34 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-    /** ���������ͶԻ� */
+    /** ͶԻ */
     @PostMapping("/task")
     public String chatByTask(@RequestParam String message,
                               @RequestParam(defaultValue = "general") String taskType) {
         return chatService.chat(message, taskType);
     }
 
-    /** �Զ�·�ɶԻ� */
+    /** Զ·ɶԻ */
     @PostMapping("/auto")
     public String chatAuto(@RequestParam String message) {
         return chatService.chatAuto(message);
     }
 
-    /** ָ��ģ�ͶԻ� */
+    /** ָģͶԻ */
     @PostMapping("/model/{modelName}")
     public String chatWithModel(@PathVariable String modelName,
                                  @RequestParam String message) {
         return chatService.chatWithModel(message, modelName);
     }
 
-    /** ��ʽ�����SSE�� */
+    /** ʽSSE */
     @GetMapping(value = "/stream", produces = "text/event-stream")
     public Flux<String> streamChat(@RequestParam String message,
                                     @RequestParam(defaultValue = "general") String taskType) {
         return chatService.streamChat(message, taskType);
     }
 
-    /** �������ĶԻ� */
+    /** ĶԻ */
     @PostMapping("/resilient")
     public String chatResilient(@RequestParam String message,
                                  @RequestParam(defaultValue = "deepseek") String primaryModel) {
@@ -491,50 +491,50 @@ public class ChatController {
 }
 ```
 
-## ����ܹ�ͼ
+## ܹͼ
 
 ```mermaid
 graph TD
-    A[�ͻ�������] --> B[ChatController]
+    A[ͻ] --> B[ChatController]
     B --> C[MultiModelChatService]
-    C --> D[ModelRouter ·����]
+    C --> D[ModelRouter ·]
 
-    D --> E{��������}
+    D --> E{}
     E -->|complex-reasoning| F[OpenAI GPT-4o]
     E -->|code-generation| G[DeepSeek-V3]
     E -->|chinese-nlp| H[GLM-4-Plus]
     E -->|general| G
 
-    C --> I[������·]
-    I --> J{��ģ�Ϳ���?}
-    J -->|��| K[������ģ�ͽ��]
-    J -->|��| L[�л�����ģ��]
+    C --> I[·]
+    I --> J{ģͿ?}
+    J -->|| K[ģͽ]
+    J -->|| L[лģ]
     L --> M[GLM / DeepSeek / OpenAI]
 
-    style D fill:#fff3e0
+    style D fill:#f3e0
     style I fill:#fce4ec
 ```
 
-## ׷������
+## ׷
 
-### ׷��һ�����ʵ��ģ�Ͷ�̬�л���
+### ׷һʵģͶ̬л
 
-���Ϸ���ͨ��������Ч���á����������У�����Ҫ**��������л�ģ��**��
+ϷͨЧáУҪ**лģ**
 
 ```mermaid
 graph LR
-    A[�������� Nacos/Apollo] --> B[�������ñ��]
-    B --> C[��̬����·�ɹ���]
-    C --> D[������ʹ����ģ��]
-    D --> E[�Ҷ��л���ͣ��]
+    A[ Nacos/Apollo] --> B[ñ]
+    B --> C[̬·ɹ]
+    C --> D[ʹģ]
+    D --> E[Ҷлͣ]
 ```
 
 ```java
 /**
- * ��̬·�����ã���� Nacos �������ģ�
+ * ̬·ã Nacos ģ
  */
 @Component
-@RefreshScope  // Spring Cloud �����Զ�ˢ��
+@RefreshScope  // Spring Cloud Զˢ
 public class DynamicModelRouter {
 
     private Map<String, String> routingRules;
@@ -542,39 +542,39 @@ public class DynamicModelRouter {
     @Value("#{${multi-model.routing.task-routing}}")
     public void setRoutingRules(Map<String, String> rules) {
         this.routingRules = rules;
-        // ���ñ��ʱ�Զ���������������
+        // ñʱԶ
     }
 
     /**
-     * �����̨�ֶ��л�Ĭ��ģ��
+     * ֶ̨лĬģ
      */
     @PostMapping("/admin/switch-model")
     public String switchDefaultModel(@RequestParam String modelName) {
-        // д���������ģ����нڵ��Զ���Ч
+        // дģнڵԶЧ
         configService.publishConfig("multi-model.routing.default", modelName);
-        return "�л��ɹ�����Ĭ��ģ��: " + modelName;
+        return "лɹĬģ: " + modelName;
     }
 }
 ```
 
-### ׷�ʶ��������ģ�� A/B ���ԣ�
+### ׷ʶģ A/B ԣ
 
 ```mermaid
 graph TD
-    A[�û�����] --> B[����������]
-    B -->|80%| C[A �飺DeepSeek]
-    B -->|20%| D[B �飺GPT-4o]
-    C --> E[��¼ָ�꣺�ӳ�/����/�ɱ�]
+    A[û] --> B[]
+    B -->|80%| C[A 飺DeepSeek]
+    B -->|20%| D[B 飺GPT-4o]
+    C --> E[¼ָ꣺ӳ//ɱ]
     D --> E
-    E --> F[ͳ�Ʒ���]
-    F --> G{��������?}
-    G -->|��| H[ȫ���л�������ģ��]
-    G -->|��| I[��������]
+    E --> F[ͳƷ]
+    F --> G{?}
+    G -->|| H[ȫлģ]
+    G -->|| I[]
 ```
 
 ```java
 /**
- * A/B ������������
+ * A/B 
  */
 @Component
 public class ABTestRouter {
@@ -583,7 +583,7 @@ public class ABTestRouter {
     private final MetricsCollector metrics;
 
     public String chatWithABTest(String userInput, String experimentName) {
-        // �����û� ID ��ȷ���Է�Ͱ
+        // û ID ȷԷͰ
         String bucket = assignBucket(userInput, experimentName);
 
         String modelName = switch (bucket) {
@@ -598,7 +598,7 @@ public class ABTestRouter {
                 .getResult().getOutput().getText();
         long latency = System.currentTimeMillis() - start;
 
-        // ��¼ָ�����ں�������
+        // ¼ָں
         metrics.record(experimentName, modelName, latency, result.length());
 
         return result;
@@ -606,40 +606,40 @@ public class ABTestRouter {
 
     private String assignBucket(String userId, String experiment) {
         int hash = Math.abs(userId.hashCode()) % 100;
-        if (hash < 80) return "control";       // 80% ������
-        return "experiment";                     // 20% ʵ����
+        if (hash < 80) return "control";       // 80% 
+        return "experiment";                     // 20% ʵ
     }
 }
 ```
 
-### ׷��������ģ�͵ĳɱ���ιܿأ�
+### ׷ģ͵ĳɱιܿأ
 
 ```mermaid
 graph TD
-    A[�ɱ��ܿز���] --> B[���⻧��Ԥ��]
-    A --> C[������ѡģ��]
-    A --> D[Token ����]
-    A --> E[������ض�]
+    A[ɱܿز] --> B[⻧Ԥ]
+    A --> C[ѡģ]
+    A --> D[Token ]
+    A --> E[ض]
 
-    B --> B1[����ܾ��򽵼�]
-    C --> C1[�������ñ���ģ��]
-    D --> D1[��ͬ���󷵻ػ���]
-    E --> E1[�������� Token]
+    B --> B1[ܾ򽵼]
+    C --> C1[ñģ]
+    D --> D1[ͬ󷵻ػ]
+    E --> E1[ Token]
 ```
 
 ```java
 /**
- * �ɱ��ܿ�������
+ * ɱܿ
  */
 @Component
 public class CostGuardInterceptor {
 
     private final TokenCounter tokenCounter;
-    private final Map<String, BigDecimal> modelPricing;  // ÿģ�͵���
+    private final Map<String, BigDecimal> modelPricing;  // ÿģ͵
 
     public CostGuardInterceptor() {
         this.modelPricing = Map.of(
-                "openai", new BigDecimal("0.018"),    // ��/1K tokens
+                "openai", new BigDecimal("0.018"),    // /1K tokens
                 "deepseek", new BigDecimal("0.001"),
                 "glm", new BigDecimal("0.005")
         );
@@ -647,54 +647,54 @@ public class CostGuardInterceptor {
 
     public String chatWithCostControl(String userId, String input,
                                        String taskType, BigDecimal budget) {
-        // Ԥ�� Token ��
+        // Ԥ Token 
         int estimatedTokens = tokenCounter.estimate(input) + 500;
 
-        // ��Ԥ��ѡģ�ͣ�Ԥ���ѡ���˵ģ�Ԥ���ѡ�õ�
+        // ԤѡģͣԤѡ˵ģԤѡõ
         String selectedModel = selectModelByBudget(estimatedTokens, budget);
 
-        // ִ��
+        // ִ
         return chatService.chatWithModel(input, selectedModel);
     }
 
     private String selectModelByBudget(int tokens, BigDecimal budget) {
-        // ����ÿ��ģ�͵Ļ��ѣ�ѡԤ����Ч����õ�
+        // ÿģ͵ĻѣѡԤЧõ
         for (String model : new String[]{"openai", "glm", "deepseek"}) {
             BigDecimal cost = modelPricing.get(model)
-                    .multiply(BigDecimal.valueOf(tokens / 1000.0));
+                    .multiply(BigDecimal.valueOf(tokens / 10.0));
             if (cost.compareTo(budget) <= 0) {
                 return model;
             }
         }
-        return "deepseek"; // ����˵Ķ���
+        return "deepseek"; // ˵Ķ
     }
 }
 ```
 
-## С��
+## С
 
-SpringAI �������ģ�͵ĺ���˼·�� **ͳһ���� + ·�ɲ���**��
+SpringAI ģ͵ĺ˼· **ͳһ + ·ɲ**
 
 ```mermaid
 graph LR
-    A[ChatClient ͳһ���] --> B[�� ChatModel Bean]
-    B --> C[ModelRouter ·�ɲ�]
-    C --> D[������/�ɱ�/������ѡģ��]
-    D --> E[����/AB����/�ɱ��ܿ�]
+    A[ChatClient ͳһ] --> B[ ChatModel Bean]
+    B --> C[ModelRouter ·ɲ]
+    C --> D[/ɱ/ѡģ]
+    D --> E[/AB/ɱܿ]
 
     style A fill:#e3f2fd
-    style C fill:#fff3e0
+    style C fill:#f3e0
     style D fill:#e8f5e9
     style E fill:#fce4ec
 ```
 
-| ���Ҫ�� | �ؼ����� | ��ֵ |
+| Ҫ | ؼ | ֵ |
 |----------|----------|------|
-| ͳһ���� | `ChatModel` �ӿ� | ҵ�������ģ�ͽ��� |
-| �� Bean ���� | `@Qualifier` ���� | ͬʱע����ģ�� |
-| ����·�� | ������� + ·�ɱ� | �Զ�ѡ����ģ�� |
-| ���ֽ��� | Fallback �� | ��ģ�͹����Զ��л� |
-| �ɱ��ܿ� | Ԥ���֪ѡ�� | ��Ԥ����ѡ���Ч�� |
-| ��̬�л� | �������� + `@RefreshScope` | ��ͣ����ģ�� |
+| ͳһ | `ChatModel` ӿ | ҵģͽ |
+|  Bean  | `@Qualifier`  | ͬʱעģ |
+| · |  + ·ɱ | Զѡģ |
+| ֽ | Fallback  | ģ͹Զл |
+| ɱܿ | Ԥ֪ѡ | ԤѡЧ |
+| ̬л |  + `@RefreshScope` | ͣģ |
 
-�����лش�����⣬�����"**ΪʲôҪ��ģ�� �� SpringAI �ܹ���� �� ����ʵ�� �� ·���뽵�� �� ��̬�л��� AB ����**"���ݽ���չʾ���㲻����д CRUD��������Ƴ��߱� **����չ�ԡ�����ά�ԡ��ɱ���ʶ** ����ҵ�� AI ��˼ܹ���
+лش⣬"**ΪʲôҪģ  SpringAI ܹ  ʵ  ·뽵  ̬л AB **"ݽչʾ㲻д CRUDƳ߱ **չԡάԡɱʶ** ҵ AI ˼ܹ

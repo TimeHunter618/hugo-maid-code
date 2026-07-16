@@ -6,11 +6,11 @@ lastmod: 2023-04-18T09:32:58+08:00
 weight: 8
 tags:
   - ATS
-  - 轨道交�
+  - 轨道交
   - 数据维护
 categories:
-  - 轨道交�
-  - 技术分�
+  - 轨道交
+  - 技术分享
 mermaid:  true
 photos:
   - https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=1920&q=80

@@ -10,7 +10,7 @@ tags:
   - 倒排索引
 categories:
   - 搜索引擎
-  - 技术分�
+  - 技术分享
 math:  true
 mermaid: true
 photos:
