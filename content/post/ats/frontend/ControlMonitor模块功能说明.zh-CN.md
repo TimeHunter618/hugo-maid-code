@@ -14,5 +14,5 @@ categories:
   - 技术分�
 mermaid:  true
 photos:
-  - https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=train%20control%20monitor%20main%20application%20window%20with%20plugin%20management%20interface&image_size=landscape_16_9
+  - https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920&q=80
 ---

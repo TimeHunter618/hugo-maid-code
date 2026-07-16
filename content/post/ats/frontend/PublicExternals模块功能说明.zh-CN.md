@@ -14,5 +14,5 @@ categories:
   - 技术分�
 mermaid:  true
 photos:
-  - https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=software%20shared%20library%20components%20with%20network%20protocol%20modules%20blue%20diagram&image_size=landscape_16_9
+  - https://images.unsplash.com/photo-1542281286-9e0a16bb7366?w=1920&q=80
 ---

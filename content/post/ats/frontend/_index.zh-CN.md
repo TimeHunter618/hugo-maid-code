@@ -12,5 +12,5 @@ categories:
   - 技术分�
 mermaid:  true
 photos:
-  - https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20rail%20transit%20control%20center%20with%20multiple%20monitoring%20screens%20showing%20train%20schedules%20and%20metro%20map%2C%20blue%20tone%2C%20professional%20dispatch%20room&image_size=landscape_16_9
+  - https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1920&q=80
 ---

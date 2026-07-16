@@ -13,5 +13,5 @@ categories:
   - 技术分�
 mermaid:  true
 photos:
-  - https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=system%20data%20maintenance%20dashboard%20with%20loading%20progress%20bar%20blue%20tech%20style&image_size=landscape_16_9
+  - https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=1920&q=80
 ---

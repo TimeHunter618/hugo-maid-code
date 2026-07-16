@@ -14,5 +14,5 @@ categories:
   - 技术分�
 mermaid:  true
 photos:
-  - https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=train%20signal%20control%20command%20processing%20interface%20with%20buttons%20and%20indicators&image_size=landscape_16_9
+  - https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1920&q=80
 ---

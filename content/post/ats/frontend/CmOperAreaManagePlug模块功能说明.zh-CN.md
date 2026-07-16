@@ -13,5 +13,5 @@ categories:
   - 技术分�
 mermaid:  true
 photos:
-  - https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=metro%20operation%20area%20zone%20management%20map%20with%20divided%20regions%20blue%20style&image_size=landscape_16_9
+  - https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80
 ---

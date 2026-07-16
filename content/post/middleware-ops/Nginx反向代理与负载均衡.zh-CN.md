@@ -14,5 +14,5 @@ categories:
 math:  true
 mermaid: true
 photos:
-  - https://d-sketon.top/img/backwebp/bg4.webp
+  - https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1920&q=80
 ---

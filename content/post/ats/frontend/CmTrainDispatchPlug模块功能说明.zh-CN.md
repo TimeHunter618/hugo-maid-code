@@ -13,5 +13,5 @@ categories:
   - 技术分�
 mermaid:  true
 photos:
-  - https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=train%20dispatch%20control%20panel%20with%20train%20schedule%20list%20and%20command%20buttons&image_size=landscape_16_9
+  - https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80
 ---

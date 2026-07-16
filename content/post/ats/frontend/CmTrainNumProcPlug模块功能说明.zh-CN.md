@@ -13,5 +13,5 @@ categories:
   - 技术分享
 mermaid: true
 photos:
-  - https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=train%20number%20list%20table%20on%20monitoring%20display%20with%20train%20IDs%20blue%20tech&image_size=landscape_16_9
+  - https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1920&q=80
 ---

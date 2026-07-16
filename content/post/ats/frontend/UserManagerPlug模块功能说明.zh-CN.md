@@ -14,5 +14,5 @@ categories:
   - 技术分�
 mermaid:  true
 photos:
-  - https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=user%20management%20interface%20with%20role%20permission%20settings%20security%20shield%20icon&image_size=landscape_16_9
+  - https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=1920&q=80
 ---

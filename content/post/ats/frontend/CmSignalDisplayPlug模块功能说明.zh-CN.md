@@ -13,5 +13,5 @@ categories:
   - 技术分�
 mermaid:  true
 photos:
-  - https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=railway%20signal%20lights%20display%20on%20monitoring%20screen%20with%20red%20green%20indicators&image_size=landscape_16_9
+  - https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&q=80
 ---

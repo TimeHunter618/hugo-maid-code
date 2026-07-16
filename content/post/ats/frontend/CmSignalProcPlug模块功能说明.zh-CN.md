@@ -13,5 +13,5 @@ categories:
   - 技术分�
 mermaid:  true
 photos:
-  - https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=signal%20data%20processing%20flow%20chart%20with%20input%20output%20streams%20blue%20tech&image_size=landscape_16_9
+  - https://images.unsplash.com/photo-1516414746402-935ce3621729?w=1920&q=80
 ---
