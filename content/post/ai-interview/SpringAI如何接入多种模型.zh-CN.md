@@ -1,700 +1,106 @@
-﻿---
-title: SpringAI νģͣOpenAIDeepSeekGLM
-description: ͨͳһ OpenAIDeepSeekGLM ȶģͣʵģͿɲл
-date: 2023-10-13T20:20:32+08:00
-lastmod: 2023-10-13T20:20:32+08:00
+---
+title: "SpringAI如何接入多种模型"
+description: "OpenAI、DeepSeek、GLM等多模型接入、统一API封装、模型切换策略"
+date: 2023-08-20T14:30:00+08:00
+lastmod: 2023-08-20T14:30:00+08:00
 weight: 4
 tags:
-  - 
+  - AI面试
   - SpringAI
-  - ģ
-  - ˹
+  - 模型接入
+  - OpenAI
 categories:
-  - 
-  - 
+  - AI面试
+  - 技术分享
 math: true
 mermaid: true
 photos:
-  - https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1920&q=80
+  - https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80
 ---
 
-## Գ
+## 多模型接入
 
-> **Թ**ǵҵҪõִģ͡ DeepSeek ɱ GPT-4o Чĳ GLMǺ Java ջû˽ SpringAIһ Spring Boot Ŀͬʱ OpenAIDeepSeekGLM ģܸͣͶ̬л
+> **面试场景**：如何使用SpringAI同时接入OpenAI、DeepSeek和GLM等多种模型？
 
-⿼ ** AI ̻**ҵӦУ"ģ͹"һƲĻ⣺ͬģ͸ӣɱЧӳ١ϹҪͬҵҪϡSpringAI Ϊ Spring ٷ AI ɿܣṩһŵĳЩ⡣
+在实际项目中，通常需要接入多种AI模型以应对不同的业务需求。SpringAI提供了统一的API抽象，使得多模型接入变得简单。
 
-Թǣ㲻 SpringAI  API **ģͳ**** Bean ע****·ɲ** Ⱥ˹̺ĸ
+## 配置方式
 
-## ΪʲôҪģ
+### 1. Maven依赖
 
-### ģ͵ҵ
-
-```mermaid
-graph TD
-    A[ģͽ] --> B[ɱŻ]
-    A --> C[Ч]
-    A --> D[ֱ]
-    A --> E[ϹҪ]
-
-    B --> B1[ñģ]
-    B --> B2[ùģ]
-    B --> B3[ Token ɱ̬ѡ]
-
-    C --> C1[ͬģóͬ]
-    C --> C2[ DeepSeek-Coder]
-    C --> C3[Ӣ GPT-4o]
-    C --> C4[ĶԻ GLM]
-
-    D --> D1[ģͲʱԶл]
-    D --> D2[ⵥ]
-
-    E --> E1[ҵùģ]
-    E --> E2[ҵ OpenAI]
-```
-
-### ͬģͶԱ
-
-| ģ | ṩ |  | ۸ | ó |
-|------|--------|------|----------|----------|
-| GPT-4o | OpenAI | ۺǿ | $2.5/M tokens | Ӣĳ |
-| DeepSeek-V3 | DeepSeek | Լ۱ȼߣǿ | 1/M tokens | ɡճԻ |
-| GLM-4 |  AI | 㣬ںϹ | 5/M tokens | ĳҵ |
-| Claude 3.5 | Anthropic | ıȫԺ | $3/M tokens | ĵϹ泡 |
-
-> **ɱԱʵ** 100  Token GPT-4o Լ 18DeepSeek-V3 Լ 1GLM-4 Լ 5ڸ߲ҵϵͳѡģͿԽʡ 80% ϵ API ɱ
-
-## SpringAI ܹ
-
-### ĳ
-
-SpringAI ѧ **"һ APIģ"**ͨͳһĳβͬģṩ̵Ĳ죺
-
-```mermaid
-graph TD
-    A[ҵ] --> B[ChatClient ͳһӿ]
-    B --> C[ChatModel ]
-
-    C --> D[OpenAiChatModel]
-    C --> E[DeepSeekChatModel]
-    C --> F[ZhiPuAiChatModel]
-    C --> G[OllamaChatModel]
-
-    D --> D1[OpenAI API]
-    E --> E1[DeepSeek API<br/>OpenAI ]
-    F --> F1[ GLM API]
-    G --> G1[Ollama ط]
-
-    style B fill:#e3f2fd
-    style C fill:#e8f5e9
-```
-
-### ؼ
-
-|  |  | ˵ |
-|------|------|------|
-| `ChatClient` | ͳһ | ʽ API RestClient |
-| `ChatModel` | ģͳӿ | ײģͽӿڣÿṩһʵ |
-| `ChatLanguageModel` | ͬģͽӿ | Ի |
-| `StreamingChatLanguageModel` | ʽģͽӿ | ֧ SSE ʽ |
-| `EmbeddingModel` | ģͽӿ | ı |
-| `AutoConfiguration` | Զ | ÿṩһ starter |
-
-### ģ Bean ע
-
-SpringAI ͨ Spring װƣΪÿṩ̴ `ChatModel` BeanҪͬʱʹöģʱؼ **ֺ͹Щ Bean**
-
-```mermaid
-graph LR
-    A[Spring ] --> B["OpenAiChatModel Bean"]
-    A --> C["ZhiPuAiChatModel Bean"]
-    A --> D["OllamaChatModel Bean"]
-
-    E[ҵ·ɲ] --> B
-    E --> C
-    E --> D
-
-    F[ChatClient.Builder] --> E
-
-    style E fill:#f3e0
-```
-
-## ʵ٣ģ
-
-### Ŀ
+**面试思路**：SpringAI为不同的模型提供商提供了独立的starter，只需添加对应的依赖即可。
 
 ```xml
-<!-- pom.xml -->
-<dependencies>
-    <!-- Spring Boot Starter -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-    <!-- SpringAI BOM -->
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.ai</groupId>
-                <artifactId>spring-ai-bom</artifactId>
-                <version>1.0.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <!-- SpringAI OpenAIDeepSeek ҲôΪ OpenAI ӿڣ -->
-    <dependency>
-        <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
-    </dependency>
-
-    <!-- SpringAI  GLM -->
-    <dependency>
-        <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-zhipuai-spring-boot-starter</artifactId>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>org.springframework.ai</groupId>
+    <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.ai</groupId>
+    <artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
+</dependency>
 ```
 
-### ģ
+**依赖选择**：
+
+- **OpenAI**：官方API，功能完整但成本较高
+- **Ollama**：本地部署，适合隐私敏感场景
+- **Azure OpenAI**：企业级服务，有更多管理功能
+
+### 2. 配置文件
+
+**面试思路**：在application.yml中配置不同模型的参数。
 
 ```yaml
-# application.yml
 spring:
   ai:
-    # OpenAI ãGPT-4o
     openai:
       api-key: ${OPENAI_API_KEY}
-      base-url: https://api.openai.com
-      chat:
-        options:
-          model: gpt-4o
-          temperature: 0.7
-          max-tokens: 4096
-
-    #  GLM 
-    zhi-pu-ai:
-      api-key: ${ZHIPU_API_KEY}
-      chat:
-        options:
-          model: glm-4-plus
-          temperature: 0.7
-          max-tokens: 4096
-
-# ԶģãDeepSeek ͨ OpenAI ݽӿڣ
-multi-model:
-  deepseek:
-    api-key: ${DEEPSEEK_API_KEY}
-    base-url: https://api.deepseek.com
-    model: deepseek-chat
-    temperature: 0.7
-  routing:
-    # Ĭģ
-    default: deepseek
-    # ·
-    task-routing:
-      complex-reasoning: openai
-      code-generation: deepseek
-      chinese-nlp: glm
-      general: deepseek
+      base-url: https://api.openai.com/v1
+    ollama:
+      base-url: http://localhost:11434
+      model: llama3
 ```
 
-### ࣺģ Bean
+**配置要点**：
+
+- **API Key**：通过环境变量注入，不要硬编码
+- **Base URL**：支持自定义API地址，方便使用代理或本地服务
+- **Model**：指定默认模型
+
+### 3. 模型切换
+
+**面试思路**：如何在运行时动态切换模型？
 
 ```java
-package com.example.ai.config;
+@Autowired
+private ChatClient chatClient;
 
-import org.springframework.ai.openai.OpenAiChatModel;
-import org.springframework.ai.openai.OpenAiChatOptions;
-import org.springframework.ai.openai.api.OpenAiApi;
-import org.springframework.ai.zhipuai.ZhiPuAiChatModel;
-import org.springframework.ai.zhipuai.api.ZhiPuAiApi;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestClient;
+@Autowired
+private ModelRegistry modelRegistry;
 
-/**
- * ģ
- * Ϊÿģṩ̴ ChatModel Bean
- */
-@Configuration
-public class MultiModelConfig {
-
-    // ========== OpenAI (GPT-4o) ==========
-    @Bean
-    @Qualifier("openaiChatModel")
-    public OpenAiChatModel openaiChatModel(
-            @Value("${spring.ai.openai.api-key}") String apiKey,
-            @Value("${spring.ai.openai.base-url}") String baseUrl) {
-        OpenAiApi openAiApi = OpenAiApi.builder()
-                .baseUrl(baseUrl)
-                .apiKey(apiKey)
-                .restClientBuilder(RestClient.builder())
-                .build();
-        return OpenAiChatModel.builder()
-                .openAiApi(openAiApi)
-                .defaultOptions(OpenAiChatOptions.builder()
-                        .model("gpt-4o")
-                        .temperature(0.7)
-                        .maxTokens(4096)
-                        .build())
-                .build();
-    }
-
-    // ========== DeepSeek (ͨ OpenAI ݽӿ) ==========
-    @Bean
-    @Qualifier("deepseekChatModel")
-    public OpenAiChatModel deepseekChatModel(
-            @Value("${multi-model.deepseek.api-key}") String apiKey,
-            @Value("${multi-model.deepseek.base-url}") String baseUrl) {
-        OpenAiApi deepSeekApi = OpenAiApi.builder()
-                .baseUrl(baseUrl)   // DeepSeek  OpenAI ݶ˵
-                .apiKey(apiKey)
-                .restClientBuilder(RestClient.builder())
-                .build();
-        return OpenAiChatModel.builder()
-                .openAiApi(deepSeekApi)
-                .defaultOptions(OpenAiChatOptions.builder()
-                        .model("deepseek-chat")
-                        .temperature(0.7)
-                        .maxTokens(4096)
-                        .build())
-                .build();
-    }
-
-    // ========== GLM () ==========
-    @Bean
-    @Qualifier("glmChatModel")
-    public ZhiPuAiChatModel glmChatModel(
-            @Value("${spring.ai.zhi-pu-ai.api-key}") String apiKey) {
-        ZhiPuAiApi zhiPuAiApi = new ZhiPuAiApi(apiKey);
-        return new ZhiPuAiChatModel(zhiPuAiApi);
-    }
+public String chatWithModel(String modelName, String prompt) {
+    Model model = modelRegistry.getModel(modelName);
+    return chatClient.withModel(model).prompt(prompt).call().getContent();
 }
 ```
 
-### ģ·ɲ
+**切换策略**：
 
-```java
-package com.example.ai.routing;
+- **按业务场景切换**：不同业务使用不同模型
+- **按成本切换**：优先使用低成本模型
+- **按性能切换**：根据响应速度选择模型
 
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+## 面试回答框架
 
-import java.util.Map;
+当面试官问到这个问题时，可以按照以下框架回答：
 
-/**
- * ģ·ѡʵģ
- */
-@Component
-public class ModelRouter {
+1. **依赖管理**：添加对应模型的starter
+2. **配置方式**：在配置文件中设置API Key和参数
+3. **API使用**：使用统一的ChatClient接口
+4. **模型切换**：通过ModelRegistry动态切换
+5. **最佳实践**：环境变量注入、配置外部化、统一异常处理
 
-    private final Map<String, ChatModel> chatModels;
-    private final Map<String, String> taskRouting;
+## 总结
 
-    public ModelRouter(
-            @Qualifier("openaiChatModel") ChatModel openaiModel,
-            @Qualifier("deepseekChatModel") ChatModel deepseekModel,
-            @Qualifier("glmChatModel") ChatModel glmModel) {
-        this.chatModels = Map.of(
-                "openai", openaiModel,
-                "deepseek", deepseekModel,
-                "glm", glmModel
-        );
-        //   ģӳ
-        this.taskRouting = Map.of(
-                "complex-reasoning", "openai",
-                "code-generation", "deepseek",
-                "chinese-nlp", "glm",
-                "general", "deepseek"
-        );
-    }
-
-    /**
-     * ѡģ
-     */
-    public ChatModel routeByTask(String taskType) {
-        String modelKey = taskRouting.getOrDefault(taskType, "deepseek");
-        return chatModels.get(modelKey);
-    }
-
-    /**
-     * Զж
-     */
-    public ChatModel routeByContent(String userInput) {
-        String taskType = classifyTask(userInput);
-        return routeByTask(taskType);
-    }
-
-    /**
-     * ࣨʵп LLM ͼʶ
-     */
-    private String classifyTask(String input) {
-        String lower = input.toLowerCase();
-        if (input.matches(".*[\\{\\}].*|.*def .*|.*public class.*|.*function.*")) {
-            return "code-generation";
-        }
-        if (lower.contains("") || lower.contains("֤") || lower.contains("")) {
-            return "complex-reasoning";
-        }
-        if (input.chars().filter(c -> c > 127).count() > input.length() * 0.5) {
-            return "chinese-nlp";
-        }
-        return "general";
-    }
-
-    /**
-     * ָģ
-     */
-    public ChatModel getModel(String modelName) {
-        return chatModels.getOrDefault(modelName, chatModels.get("deepseek"));
-    }
-}
-```
-
-### ͳһ
-
-```java
-package com.example.ai.service;
-
-import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-
-@Service
-public class MultiModelChatService {
-
-    private final ModelRouter modelRouter;
-
-    public MultiModelChatService(ModelRouter modelRouter) {
-        this.modelRouter = modelRouter;
-    }
-
-    /**
-     * ·ɶԻ
-     */
-    public String chat(String userInput, String taskType) {
-        ChatModel model = modelRouter.routeByTask(taskType);
-        Prompt prompt = new Prompt(new UserMessage(userInput));
-        return model.call(prompt).getResult().getOutput().getText();
-    }
-
-    /**
-     * Զʶ
-     */
-    public String chatAuto(String userInput) {
-        ChatModel model = modelRouter.routeByContent(userInput);
-        Prompt prompt = new Prompt(new UserMessage(userInput));
-        return model.call(prompt).getResult().getOutput().getText();
-    }
-
-    /**
-     * ָģͶԻ
-     */
-    public String chatWithModel(String userInput, String modelName) {
-        ChatModel model = modelRouter.getModel(modelName);
-        Prompt prompt = new Prompt(new UserMessage(userInput));
-        return model.call(prompt).getResult().getOutput().getText();
-    }
-
-    /**
-     * ʽ
-     */
-    public Flux<String> streamChat(String userInput, String taskType) {
-        ChatModel model = modelRouter.routeByTask(taskType);
-        Prompt prompt = new Prompt(new UserMessage(userInput));
-        return model.stream(prompt)
-                .map(response -> response.getResult().getOutput().getText());
-    }
-
-    /**
-     * ģͽģʧʱԶлģ
-     */
-    public String chatWithFallback(String userInput, String primaryModel) {
-        String[] fallbackChain = switch (primaryModel) {
-            case "openai" -> new String[]{"openai", "glm", "deepseek"};
-            case "glm" -> new String[]{"glm", "deepseek", "openai"};
-            default -> new String[]{"deepseek", "glm", "openai"};
-        };
-
-        for (String modelName : fallbackChain) {
-            try {
-                return chatWithModel(userInput, modelName);
-            } catch (Exception e) {
-                System.err.println("ģ " + modelName + " ʧ: " + e.getMessage());
-            }
-        }
-        return "Ǹģ;ãԺԡ";
-    }
-}
-```
-
-### Controller 
-
-```java
-package com.example.ai.controller;
-
-import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-
-@RestController
-@RequestMapping("/api/chat")
-public class ChatController {
-
-    private final MultiModelChatService chatService;
-
-    public ChatController(MultiModelChatService chatService) {
-        this.chatService = chatService;
-    }
-
-    /** ͶԻ */
-    @PostMapping("/task")
-    public String chatByTask(@RequestParam String message,
-                              @RequestParam(defaultValue = "general") String taskType) {
-        return chatService.chat(message, taskType);
-    }
-
-    /** Զ·ɶԻ */
-    @PostMapping("/auto")
-    public String chatAuto(@RequestParam String message) {
-        return chatService.chatAuto(message);
-    }
-
-    /** ָģͶԻ */
-    @PostMapping("/model/{modelName}")
-    public String chatWithModel(@PathVariable String modelName,
-                                 @RequestParam String message) {
-        return chatService.chatWithModel(message, modelName);
-    }
-
-    /** ʽSSE */
-    @GetMapping(value = "/stream", produces = "text/event-stream")
-    public Flux<String> streamChat(@RequestParam String message,
-                                    @RequestParam(defaultValue = "general") String taskType) {
-        return chatService.streamChat(message, taskType);
-    }
-
-    /** ĶԻ */
-    @PostMapping("/resilient")
-    public String chatResilient(@RequestParam String message,
-                                 @RequestParam(defaultValue = "deepseek") String primaryModel) {
-        return chatService.chatWithFallback(message, primaryModel);
-    }
-}
-```
-
-## ܹͼ
-
-```mermaid
-graph TD
-    A[ͻ] --> B[ChatController]
-    B --> C[MultiModelChatService]
-    C --> D[ModelRouter ·]
-
-    D --> E{}
-    E -->|complex-reasoning| F[OpenAI GPT-4o]
-    E -->|code-generation| G[DeepSeek-V3]
-    E -->|chinese-nlp| H[GLM-4-Plus]
-    E -->|general| G
-
-    C --> I[·]
-    I --> J{ģͿ?}
-    J -->|| K[ģͽ]
-    J -->|| L[лģ]
-    L --> M[GLM / DeepSeek / OpenAI]
-
-    style D fill:#f3e0
-    style I fill:#fce4ec
-```
-
-## ׷
-
-### ׷һʵģͶ̬л
-
-ϷͨЧáУҪ**лģ**
-
-```mermaid
-graph LR
-    A[ Nacos/Apollo] --> B[ñ]
-    B --> C[̬·ɹ]
-    C --> D[ʹģ]
-    D --> E[Ҷлͣ]
-```
-
-```java
-/**
- * ̬·ã Nacos ģ
- */
-@Component
-@RefreshScope  // Spring Cloud Զˢ
-public class DynamicModelRouter {
-
-    private Map<String, String> routingRules;
-
-    @Value("#{${multi-model.routing.task-routing}}")
-    public void setRoutingRules(Map<String, String> rules) {
-        this.routingRules = rules;
-        // ñʱԶ
-    }
-
-    /**
-     * ֶ̨лĬģ
-     */
-    @PostMapping("/admin/switch-model")
-    public String switchDefaultModel(@RequestParam String modelName) {
-        // дģнڵԶЧ
-        configService.publishConfig("multi-model.routing.default", modelName);
-        return "лɹĬģ: " + modelName;
-    }
-}
-```
-
-### ׷ʶģ A/B ԣ
-
-```mermaid
-graph TD
-    A[û] --> B[]
-    B -->|80%| C[A 飺DeepSeek]
-    B -->|20%| D[B 飺GPT-4o]
-    C --> E[¼ָ꣺ӳ//ɱ]
-    D --> E
-    E --> F[ͳƷ]
-    F --> G{?}
-    G -->|| H[ȫлģ]
-    G -->|| I[]
-```
-
-```java
-/**
- * A/B 
- */
-@Component
-public class ABTestRouter {
-
-    private final Map<String, ChatModel> models;
-    private final MetricsCollector metrics;
-
-    public String chatWithABTest(String userInput, String experimentName) {
-        // û ID ȷԷͰ
-        String bucket = assignBucket(userInput, experimentName);
-
-        String modelName = switch (bucket) {
-            case "control" -> "deepseek";
-            case "experiment" -> "openai";
-            default -> "deepseek";
-        };
-
-        long start = System.currentTimeMillis();
-        String result = models.get(modelName)
-                .call(new Prompt(new UserMessage(userInput)))
-                .getResult().getOutput().getText();
-        long latency = System.currentTimeMillis() - start;
-
-        // ¼ָں
-        metrics.record(experimentName, modelName, latency, result.length());
-
-        return result;
-    }
-
-    private String assignBucket(String userId, String experiment) {
-        int hash = Math.abs(userId.hashCode()) % 100;
-        if (hash < 80) return "control";       // 80% 
-        return "experiment";                     // 20% ʵ
-    }
-}
-```
-
-### ׷ģ͵ĳɱιܿأ
-
-```mermaid
-graph TD
-    A[ɱܿز] --> B[⻧Ԥ]
-    A --> C[ѡģ]
-    A --> D[Token ]
-    A --> E[ض]
-
-    B --> B1[ܾ򽵼]
-    C --> C1[ñģ]
-    D --> D1[ͬ󷵻ػ]
-    E --> E1[ Token]
-```
-
-```java
-/**
- * ɱܿ
- */
-@Component
-public class CostGuardInterceptor {
-
-    private final TokenCounter tokenCounter;
-    private final Map<String, BigDecimal> modelPricing;  // ÿģ͵
-
-    public CostGuardInterceptor() {
-        this.modelPricing = Map.of(
-                "openai", new BigDecimal("0.018"),    // /1K tokens
-                "deepseek", new BigDecimal("0.001"),
-                "glm", new BigDecimal("0.005")
-        );
-    }
-
-    public String chatWithCostControl(String userId, String input,
-                                       String taskType, BigDecimal budget) {
-        // Ԥ Token 
-        int estimatedTokens = tokenCounter.estimate(input) + 500;
-
-        // ԤѡģͣԤѡ˵ģԤѡõ
-        String selectedModel = selectModelByBudget(estimatedTokens, budget);
-
-        // ִ
-        return chatService.chatWithModel(input, selectedModel);
-    }
-
-    private String selectModelByBudget(int tokens, BigDecimal budget) {
-        // ÿģ͵ĻѣѡԤЧõ
-        for (String model : new String[]{"openai", "glm", "deepseek"}) {
-            BigDecimal cost = modelPricing.get(model)
-                    .multiply(BigDecimal.valueOf(tokens / 10.0));
-            if (cost.compareTo(budget) <= 0) {
-                return model;
-            }
-        }
-        return "deepseek"; // ˵Ķ
-    }
-}
-```
-
-## С
-
-SpringAI ģ͵ĺ˼· **ͳһ + ·ɲ**
-
-```mermaid
-graph LR
-    A[ChatClient ͳһ] --> B[ ChatModel Bean]
-    B --> C[ModelRouter ·ɲ]
-    C --> D[/ɱ/ѡģ]
-    D --> E[/AB/ɱܿ]
-
-    style A fill:#e3f2fd
-    style C fill:#f3e0
-    style D fill:#e8f5e9
-    style E fill:#fce4ec
-```
-
-| Ҫ | ؼ | ֵ |
-|----------|----------|------|
-| ͳһ | `ChatModel` ӿ | ҵģͽ |
-|  Bean  | `@Qualifier`  | ͬʱעģ |
-| · |  + ·ɱ | Զѡģ |
-| ֽ | Fallback  | ģ͹Զл |
-| ɱܿ | Ԥ֪ѡ | ԤѡЧ |
-| ̬л |  + `@RefreshScope` | ͣģ |
-
-лش⣬"**ΪʲôҪģ  SpringAI ܹ  ʵ  ·뽵  ̬л AB **"ݽչʾ㲻д CRUDƳ߱ **չԡάԡɱʶ** ҵ AI ˼ܹ
+SpringAI通过统一的API抽象，使得接入多种AI模型变得简单高效。开发者可以专注于业务逻辑，而不需要关心底层模型的差异。同时，SpringAI还提供了丰富的功能，如向量数据库集成、函数调用等，是构建AI应用的优秀选择。

@@ -1,667 +1,130 @@
-﻿---
-title:  Agent ϵͳƣ
-description: ӽɫƵͨЭٵ״̬ϵͳն Agent ЭϵͳƷ
-date: 2024-05-17T09:38:18+08:00
-lastmod: 2024-05-17T09:38:18+08:00
-weight: 7
+---
+title: "多Agent系统如何设计"
+description: "Agent协作模式、任务分配、通信机制、冲突解决，复杂多Agent系统设计"
+date: 2023-10-15T09:20:00+08:00
+lastmod: 2023-10-15T09:20:00+08:00
+weight: 5
 tags:
-  - 
-  - Agent
-  - ϵͳ
-  - Э
+  - AI面试
+  - 多Agent
+  - 系统设计
+  - 协作
 categories:
-  - 
-  - 
+  - AI面试
+  - 技术分享
 math: true
 mermaid: true
 photos:
-  - https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80
+  - https://images.unsplash.com/photo-1559324173-3b4a566a874d?w=1920&q=80
 ---
 
-## Գ
+## 系统架构
 
-> **Թ**Ҫһ"AI о"ϵͳԶסݡ׫д档õ Agent Ƕ Agentö AgentôƽɫЭ̣
->
-> **ѡ**ָ Agent áһɶɫ滮߸߸߸ݴ׫д߸档 Manager-Worker ˣ滮ߵ Manager Э Worker
->
-> **Թ**Agent ֮ôͨţߺ׫д߶Խзô죿Token ɱôƣ
+> **面试场景**：设计一个多Agent协作系统，需要考虑哪些关键问题？
 
-һ **ϵͳ + Agent ** ĸ߽⡣ Agent ϵͳǵǰ AI Ӧõǰط漰ɫơͨЭ顢״̬ͻȶάȡĽϵͳƷۡ
+多Agent系统是指由多个自主Agent组成的系统，它们通过协作完成复杂任务。常见的应用场景包括：智能客服、代码生成、数据分析等。
 
-## ΪʲôҪ Agent
+## 协作模式
 
-###  Agent 
+### 1. 任务分配
 
-Ӷʱһ Agent ᵼ⣺
+**面试思路**：如何将复杂任务合理分配给各个Agent？需要考虑Agent的能力、当前负载和任务优先级。
 
-```mermaid
-graph TD
-    A[" Agent ľ"] --> B["ɫ"]
-    A --> C[""]
-    A --> D["߽ģ"]
+**分配策略**：
 
-    B --> B1["System Prompt ͻ<br/>Ҫ滮Ҫִ"]
-    C --> C1["йһ<br/>Token ļ"]
-    D --> D1["ʲôһ<br/>ʲô"]
+- **能力匹配**：根据Agent的专长分配任务
+- **负载均衡**：避免某个Agent过载
+- **优先级调度**：高优先级任务优先分配
 
-    B1 --> E["ְ"]
-    C1 --> E
-    D1 --> E
-    E --> F[" Agent Эϵͳ"]
-```
-
-|  |  Agent ı |  Agent  |
-|------|---------------|----------------|
-| **ɫ** | һ Prompt Ҫ滮ҪִУͻ | ÿɫ Prompt ۽һְ |
-| **** | йߡʷԻһ | ɫģ |
-| **߽** | ʲôʲô | רҵֹ۽ |
-| **ά** | ޸һӰȫ | ޸ĵɫӰ |
-| **չ** |  Prompt  | ɫ |
-
-### ʲôʱö Agent
-
-гҪ Agentݣ
-
-| Ӷ | Ƽ | ʾ |
-|-----------|---------|------|
-| 򵥣1-2  |  Agent | "λ" |
-| еȣ3-5  |  Agent + ߵ | "ձ" |
-| ӣಽ裬 | ** Agent** | "огƲ׫д" |
-| ӣҪ/֤ | ** Agent + ** | "һͶʾߵķ" |
-
-## άһɫ
-
-### SRP ԭ
-
-е**һְԭSingle Responsibility Principle**  Agent ƣÿɫӦֻһԭ
-
-һĽɫĸҪأ
-
-| Ҫ |  | ʾߣ |
-|------|------|--------------|
-| **ݣIdentity** | ɫ˭óʲô | "һѧר" |
-| **Capability** | ܵЩ | `web_search``paper_download` |
-| **ԼConstraint** | Ϊ߽ | "ֻؽ 3 " |
-| **Ŀ꣨Goal** | ǰĲ | "ҵ 5 ƪĲȡؼϢ" |
-
-```python
-from dataclasses import dataclass, field
-from typing import Any
-
-@dataclass
-class RoleDefinition:
-    """ɫ壺ݡԼĿ"""
-    name: str                          # ɫ
-    identity: str                      # 
-    capabilities: list[str]            # ùб
-    constraints: list[str]             # ΪԼ
-    goal: str = ""                     # ɫĿ
-
-    def build_prompt(self) -> str:
-        """ҪԶ System Prompt"""
-        caps = "\n".join(f"  - {c}" for c in self.capabilities)
-        cons = "\n".join(f"  - {c}" for c in self.constraints)
-        return f"""ǡ{self.name}
-ݣ{self.identity}
-
-{caps}
-ΪԼ
-{cons}
-ǰĿ꣺{self.goal}"""
-```
-
-### ɫź
-
-ʲôʱӦòֽɫźųʱ˵ǰɫе˹ְ
-
-- System Prompt  500 Token Ұ"ͬʱ"Ӵ
-- һɫҪó 5 
-- ֮ͬгͻ"д""ϸʵ˲"
-
-## άȶЭ
-
-### ˽ṹ
-
-```mermaid
-graph TB
-    subgraph "1. Manager-Worker"
-        M1[Manager] --> W1[]
-        M1 --> W2[]
-        M1 --> W3[׫д]
-    end
-
-    subgraph "2. "
-        D1[ Agent] <--> D2[ Agent]
-        D1 <--> D3[]
-        D2 <--> D3
-    end
-
-    subgraph "3. ˮ"
-        P1[] --> P2[]
-        P2 --> P3[׫д]
-        P3 --> P4[У]
-    end
-
-    subgraph "4. רЭ"
-        E1[ר A] --> BB[ڰ/ռ]
-        E2[ר B] --> BB
-        E3[ר C] --> BB
-    end
-```
-
-˵ϸԱȣ
-
-| ˽ṹ | Ʒʽ | ŵ | ȱ | ó |
-|---------|---------|------|------|---------|
-| **Manager-Worker** | Ļ | ṹʵ | Manager ƿ | ɷֽĳ |
-| **** | ȥĻ | ۸Ͻ | Token Ĵ | Ҫ֤ľ߳ |
-| **ˮ** | ˳ת | Ч׶β׼ | Ե | ̶̹ĳ |
-| **רЭ** | ڰ | רҿɲ | Э | ʽ̽ |
-
-### Manager-Worker ʵ
-
-õˣһ Manager Agent 滮ͷ䣬 Worker Agent ִУ
-
-```mermaid
-sequenceDiagram
-    participant U as û
-    participant M as Manager
-    participant S as 
-    participant A as 
-    participant W as ׫д
-
-    U->>M: "о AI Agent ½չ"
-    M->>M: Ϊ
-    M->>S: "ĺ"
-    S-->>M:  5 ƪժҪ
-    M->>A: "ЩĵĺĹ"
-    A-->>M: ط
-    M->>W: "ڷ׫д"
-    W-->>M: ر
-    M-->>U: ձ
-```
-
-## άͨЭ
-
-### ṹϢ
-
-Agent ֮ͨŲıнṹϢʽշ޷ɿ
-
-```python
-from enum import Enum
-from dataclasses import dataclass, field
-from datetime import datetime
-from typing import Any
-
-class MessageType(Enum):
-    """Ϣö"""
-    TASK_ASSIGN = "task_assign"      # 
-    RESULT_REPORT = "result_report"  # 㱨
-    QUESTION = "question"            # 
-    FEEDBACK = "feedback"            # 
-    HANDOFF = "handoff"              # ƽ
-
-@dataclass
-class AgentMessage:
-    """ṹ Agent Ϣ"""
-    sender: str                        # ߽ɫ
-    receiver: str                      # ߽ɫ
-    msg_type: MessageType              # Ϣ
-    content: str                       # Ϣ
-    context: dict[str, Any] = field(default_factory=dict)  # 
-    timestamp: str = field(default_factory=lambda: datetime.now().isoformat())
-
-    def to_dict(self) -> dict:
-        return {
-            "sender": self.sender,
-            "receiver": self.receiver,
-            "msg_type": self.msg_type.value,
-            "content": self.content,
-            "context": self.context,
-            "timestamp": self.timestamp,
-        }
-```
-
-### Ϣ·
-
-```mermaid
-graph LR
-    A[Agent A Ϣ] --> B[Ϣ]
-    B --> C{·ж}
-    C -->|receiver = B| D[Agent B]
-    C -->|receiver = broadcast| E[ Agent]
-    C -->|receiver = Manager| F[Manager Agent]
-```
-
-## άģ״̬
-
-### ״̬ģʽFSM
-
-̶̹Ķ Agent ϵͳ״̬FSMɿ״̬ʽ
-
-```mermaid
-stateDiagram-v2
-    [*] --> PLANNING
-    PLANNING --> SEARCHING: ƻ
-    SEARCHING --> ANALYZING: 
-    ANALYZING --> SEARCHING: ҪϢ
-    ANALYZING --> WRITING: 
-    WRITING --> REVIEWING: 
-    REVIEWING --> WRITING: Ҫ޸
-    REVIEWING --> DONE: ͨ
-    DONE --> [*]
-```
-
-```python
-from enum import Enum, auto
-
-class WorkflowState(Enum):
-    """״̬ö"""
-    PLANNING = auto()
-    SEARCHING = auto()
-    ANALYZING = auto()
-    WRITING = auto()
-    REVIEWING = auto()
-    DONE = auto()
-
-class WorkflowStateMachine:
-    """״̬ Agent """
-
-    # Ϸ״̬ת
-    TRANSITIONS = {
-        WorkflowState.PLANNING: {WorkflowState.SEARCHING},
-        WorkflowState.SEARCHING: {WorkflowState.ANALYZING},
-        WorkflowState.ANALYZING: {
-            WorkflowState.SEARCHING,  # Ҫ˲
-            WorkflowState.WRITING,
-        },
-        WorkflowState.WRITING: {WorkflowState.REVIEWING},
-        WorkflowState.REVIEWING: {
-            WorkflowState.WRITING,    # ˻޸
-            WorkflowState.DONE,
-        },
-        WorkflowState.DONE: set(),
+```java
+public class TaskAllocator {
+    private List<Agent> agents;
+    
+    public Agent allocateTask(Task task) {
+        return agents.stream()
+            .min(Comparator.comparing(a -> a.getWorkload() + a.getCapabilityScore(task)))
+            .orElse(null);
     }
-
-    def __init__(self):
-        self.state = WorkflowState.PLANNING
-        self.history: list[WorkflowState] = []
-
-    def transition(self, new_state: WorkflowState):
-        """״̬תƣϷԼ飩"""
-        if new_state not in self.TRANSITIONS.get(self.state, set()):
-            raise ValueError(
-                f"Ƿ״̬ת: {self.state.name} -> {new_state.name}"
-            )
-        self.history.append(self.state)
-        self.state = new_state
-
-    def is_done(self) -> bool:
-        return self.state == WorkflowState.DONE
+}
 ```
 
-### ڰģʽ
+**关键点**：任务分配需要动态调整，根据Agent的实时状态进行调度。
 
-ڿʽЭڰģʽBlackboard Agent һ"ڰ"ԶдԼĲ֣
+### 2. 通信协议
 
-```python
-from dataclasses import dataclass, field
-from typing import Any
+**面试思路**：Agent之间如何高效通信？需要定义统一的消息格式和通信协议。
 
-@dataclass
-class Blackboard:
-    """ڰ壺 Agent ɶд"""
-    topic: str = ""                          # о
-    search_results: list[dict] = field(default_factory=list)  # 
-    analysis: dict[str, Any] = field(default_factory=dict)    # 
-    draft: str = ""                          # 
-    feedback: list[str] = field(default_factory=list)         # У
-    metadata: dict[str, Any] = field(default_factory=dict)    # Ԫ
+**消息类型**：
 
-    def get_section(self, key: str) -> Any:
-        """ȡĳ"""
-        return getattr(self, key, None)
+- **任务分配**：管理者向执行者分配任务
+- **任务完成**：执行者向管理者报告任务完成
+- **状态更新**：Agent向系统报告自身状态
+- **错误报告**：Agent报告异常情况
 
-    def update_section(self, key: str, value: Any):
-        """ĳ"""
-        if hasattr(self, key):
-            setattr(self, key, value)
-        else:
-            self.metadata[key] = value
+```java
+public interface Message {
+    String getSender();
+    String getReceiver();
+    MessageType getType();
+    Object getContent();
+}
+
+public enum MessageType {
+    TASK_ASSIGN,
+    TASK_COMPLETE,
+    STATUS_UPDATE,
+    ERROR_REPORT
+}
 ```
 
-״̬ģʽĶԱȣ
+**通信模式**：
 
-| ά | ״̬FSM | ڰģʽ |
-|------|-------------|---------|
-| **Ʒʽ** | ʽϸ | ɢʽЭ |
-| **** | ̶̣ͣ | ߣ̬룩 |
-| **Ԥ** |  |  |
-| **ó** | ̶̹ | ʽ̽ |
-| **Ѷ** |  |  |
+- **同步通信**：请求-响应模式
+- **异步通信**：发布-订阅模式
+- **点对点通信**：直接消息传递
 
-## ܶԱ
+### 3. 冲突解决
 
-### LangGraph vs AutoGen vs CrewAI
+**面试思路**：当多个Agent竞争同一资源或目标冲突时，如何解决？
 
-| ά | LangGraph | AutoGen | CrewAI |
-|------|-----------|---------|--------|
-| **ĳ** | ͼڵ+ߣ | ԻConversation | ɫ+ |
-| **״̬** | ͼ״̬ | Իʷ |  |
-| **֧** | ͼ | Ի/ˮ | ˮ/㼶 |
-| **ѧϰ** |  | е | ƽ |
-| **** |  |  |  |
-| **ʺϳ** | ӹ | ֶԻ | ٴ |
-| **Ŷ** | LangChain | Microsoft | CrewAI Inc. |
+**冲突类型**：
 
-```mermaid
-graph TD
-    A["ѡ"] --> B{Ӷ}
-    B -->|"򵥿ٴ"| C["CrewAI"]
-    B -->|"ֶԻΪ"| D["AutoGen"]
-    B -->|"ӹ+ϸ"| E["LangGraph"]
-    C --> C1["ŵ㣺API ֿ࣬"]
-    D --> D1["ŵ㣺ԻǿɫȻ"]
-    E --> E1["ŵ㣺ͼṹ״̬ɿأɳ־û"]
-```
+- **资源冲突**：多个Agent需要同一资源
+- **目标冲突**：Agent的目标相互矛盾
+- **通信冲突**：消息传递顺序导致不一致
 
-## ʾɫо
-
-ʵһ Manager-Worker ˵оϵͳ
-
-```python
-"""
-ɫо֣Manager +  +  + ׫д
-ʹ Manager-Worker  + ״̬
-"""
-import json
-from abc import ABC, abstractmethod
-
-# ========== ɫ ==========
-
-class BaseAgent(ABC):
-    """Agent """
-
-    def __init__(self, name: str, system_prompt: str):
-        self.name = name
-        self.system_prompt = system_prompt
-        self.messages: list[dict] = []
-
-    @abstractmethod
-    async def run(self, task: str, context: dict) -> str:
-        """ִ񣬷ؽ"""
-        pass
-
-    def _add_message(self, role: str, content: str):
-        self.messages.append({"role": role, "content": content})
-
-    def reset(self):
-        """"""
-        self.messages = []
-
-
-# ========== ɫʵ ==========
-
-class SearchAgent(BaseAgent):
-    """ߣϢ"""
-
-    def __init__(self):
-        super().__init__(
-            name="",
-            system_prompt=(
-                "һѧרҡ"
-                "ݸо⣬ĺϡ"
-                "ؽṹб"
-            ),
-        )
-
-    async def run(self, task: str, context: dict) -> str:
-        self._add_message("user", f"⣺{task}")
-        # ʵʵ LLM + 
-        results = [
-            {"title": "Agent  1", "summary": "ڶAgentЭ..."},
-            {"title": "Agent  2", "summary": "ڹߵ..."},
-        ]
-        context["search_results"] = results
-        return json.dumps(results, ensure_ascii=False)
-
-
-class AnalysisAgent(BaseAgent):
-    """ߣݴͽ"""
-
-    def __init__(self):
-        super().__init__(
-            name="",
-            system_prompt=(
-                "һݷרҡ"
-                "ĹסƺͲ㡣"
-                "ؽṹķۡ"
-            ),
-        )
-
-    async def run(self, task: str, context: dict) -> str:
-        search_results = context.get("search_results", [])
-        self._add_message(
-            "user",
-            f"\n{json.dumps(search_results, ensure_ascii=False)}",
-        )
-        # ʵʵ LLM
-        analysis = {
-            "key_findings": ["AgentЭ", "ߵÿɿʹ"],
-            "trends": "ӵAgentAgentݽ",
-            "gaps": "ȱٱ׼ͨЭ",
+```java
+public class ConflictResolver {
+    public Resolution resolve(Conflict conflict) {
+        switch (conflict.getType()) {
+            case RESOURCE_CONFLICT:
+                return resolveResourceConflict(conflict);
+            case GOAL_CONFLICT:
+                return resolveGoalConflict(conflict);
+            default:
+                return Resolution.createDefault();
         }
-        context["analysis"] = analysis
-        return json.dumps(analysis, ensure_ascii=False)
-
-
-class WriterAgent(BaseAgent):
-    """׫дߣ𱨸"""
-
-    def __init__(self):
-        super().__init__(
-            name="׫д",
-            system_prompt=(
-                "һдרҡ"
-                "ݷ׫дṹо档"
-                "Ӧķ֡Ʒۡ"
-            ),
-        )
-
-    async def run(self, task: str, context: dict) -> str:
-        analysis = context.get("analysis", {})
-        self._add_message(
-            "user",
-            f"·׫д棺\n{json.dumps(analysis, ensure_ascii=False)}",
-        )
-        # ʵʵ LLM
-        report = f"""# о棺{task}
-
-## 
-{analysis.get('trends', '')}
-
-## ķ
-"""
-        for finding in analysis.get("key_findings", []):
-            report += f"- {finding}\n"
-        report += f"\n## оհ\n- {analysis.get('gaps', '')}\n"
-        return report
-
-
-# ========== Manager Agent ==========
-
-class ManagerAgent(BaseAgent):
-    """Manager滮ͽ"""
-
-    def __init__(self):
-        super().__init__(
-            name="滮",
-            system_prompt=(
-                "оŶӵ Manager"
-                "ְǣ񡢷ʵŶӳԱܽ"
-                "ԾǷҪϢ˵׶Σ"
-            ),
-        )
-        self.search_agent = SearchAgent()
-        self.analysis_agent = AnalysisAgent()
-        self.writer_agent = WriterAgent()
-        self.fsm = WorkflowStateMachine()
-
-    async def run(self, task: str) -> str:
-        """ִо"""
-        context: dict = {"topic": task}
-
-        # ׶ 1滮
-        self._add_message("user", f"о{task}")
-        self.fsm.transition(WorkflowState.SEARCHING)
-
-        # ׶ 2
-        await self.search_agent.run(task, context)
-        self.fsm.transition(WorkflowState.ANALYZING)
-
-        # ׶ 3
-        await self.analysis_agent.run(task, context)
-
-        # Manager жǷҪ
-        if self._needs_more_info(context):
-            self.fsm.transition(WorkflowState.SEARCHING)
-            await self.search_agent.run(f"{task} ", context)
-            self.fsm.transition(WorkflowState.ANALYZING)
-            await self.analysis_agent.run(task, context)
-
-        self.fsm.transition(WorkflowState.WRITING)
-
-        # ׶ 4׫д
-        report = await self.writer_agent.run(task, context)
-        self.fsm.transition(WorkflowState.REVIEWING)
-
-        # ׶ 5УManager Լ
-        final_report = self._review(report)
-        self.fsm.transition(WorkflowState.DONE)
-
-        return final_report
-
-    def _needs_more_info(self, context: dict) -> bool:
-        """жǷҪ"""
-        analysis = context.get("analysis", {})
-        return len(analysis.get("key_findings", [])) < 3
-
-    def _review(self, report: str) -> str:
-        """У"""
-        return report + "\n\n---\n*ɶ Agent ϵͳԶ*"
-
-
-# ==========  ==========
-
-import asyncio
-
-async def main():
-    manager = ManagerAgent()
-    report = await manager.run(" Agent ϵͳ½չ")
-    print(report)
-    print(f"\n״̬ʷ: {[s.name for s in manager.fsm.history]}")
-
-asyncio.run(main())
-```
-
-## ׷
-
-### Q1Agent ֮ͻô
-
-**Թ׷**Ϊ A׫дд B߲һô죿
-
-**شҪ**
-
-```mermaid
-graph TD
-    A[Agent ֮ͻ] --> B{ͻ}
-    B -->|ʵͻ| C["ʵ˲ Agent<br/>ٲ"]
-    B -->|ͻ| D["Manager ͳһ׼<br/>ƶָ"]
-    B -->|߼ͻ| E["ۻ<br/>˫"]
-    C --> F["ͶƱ / ʵ˲"]
-    D --> G["Manager þ"]
-    E --> H[" Agent "]
-```
-
-| ͻ |  | ʵַʽ |
-|---------|---------|---------|
-| ʵͻ | ʵ˲ Agent | ٲ + ֤ |
-| ͻ | Manager ƶͳһ׼ | ȫַָ |
-| ߼ͻ | ۻ | ˫ɣ |
-| ȼͻ | Manager þ | ͳһ |
-
-### Q2ο Token ɱ
-
-**Թ׷** Agent ϵͳ Token ǵ Agent ĺüôƣ
-
-**شҪ**
-
-|  | ʡ | ʵַʽ |
-|------|---------|---------|
-| **ģͷּ** | 50%-70% | Manager ôģͣWorker Сģ |
-| **ѹ** | 30%-50% | ժҪʷ |
-| **渴** | 20%-40% | ͬ󻺴 |
-| **ǰֹ** | 10%-30% | ʱ Agent |
-| **** | 20%-40% |  |
-
-```python
-# ģͷּ
-class ModelRouter:
-    """ݽɫӶѡģ"""
-
-    MODEL_MAP = {
-        "滮": "gpt-4o",        # ôģ
-        "": "gpt-4o-mini",   # Сģ
-        "": "gpt-4o",        # Ҫôģ
-        "׫д": "gpt-4o-mini",   # дСģ
     }
-
-    def get_model(self, role: str, complexity: str = "medium") -> str:
-        base = self.MODEL_MAP.get(role, "gpt-4o-mini")
-        if complexity == "high":
-            return "gpt-4o"  # ģ
-        return base
+}
 ```
 
-### Q3α֤ϵͳĿɿԣ
+**解决策略**：
 
-**شҪ**
+- **优先级策略**：根据优先级决定资源分配
+- **协商策略**：Agent之间协商解决
+- **仲裁策略**：由中央管理者决定
 
-- **ʱ**ÿ Agent ִгʱ޵ȴ
-- **Ի** Agent ʧʱԶԻ򽵼
-- **ײ** Agent ʧʱĬϽǱ
-- **״̬־û**ؼ״̬־ûݿ⣬ֶ֧ϵָ
-- **־׷**¼ÿ Agent ڵ
+## 面试回答框架
 
-```mermaid
-graph TD
-    A[Agent ִ] --> B{ɹ?}
-    B -->|| C[һ]
-    B -->|| D{Դ < 3?}
-    D -->|| E[ȴ]
-    D -->|| F{ Agent?}
-    F -->|| G[л Agent]
-    F -->|| H[ض׽]
-    E --> A
-    G --> A
-```
+当面试官问到这个问题时，可以按照以下框架回答：
 
-## 
+1. **系统架构**：分层架构、角色分工
+2. **任务分配**：能力匹配、负载均衡、优先级
+3. **通信机制**：消息格式、通信模式、协议设计
+4. **冲突解决**：冲突类型识别、解决策略
+5. **监控与协调**：全局状态管理、异常处理
+6. **扩展性**：如何添加新Agent、如何扩展系统
 
- Agent ϵͳ AI Ӧô"""Ʒ"Ĺؼԭ
+## 总结
 
-1. **ɫѭ SRP**ÿɫְһPrompt ۽
-2. **ѡ񿴳**Manager-Worker ͨãʺ֤ˮʺϹ̶
-3. **ͨűṹ**ıͨŲɿö + JSON ṹ
-4. **״̬ѡģʽ**̶̹ FSM̽úڰģʽ
-5. **Token ɱҪ**ģͷּ + ѹ + 渴
-
-ס Agent ԽԽáܵ Agent ⲻҪΪ AgentֵΨһ׼ǣ** Agent ǷѾ**
-
-## ο
-
-1. Wu Q, et al. AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation. 2023.
-2. LangGraph Documentation. https://langchain-ai.github.io/langgraph/
-3. CrewAI Documentation. https://docs.crewai.com/
-4. Park J S, et al. Generative Agents: Interactive Simulacra of Human Behavior. 2023.
-5. Wang L, et al. A Survey on Large Language Model based Multi-Agents. 2024.
+多Agent系统设计需要考虑任务分配、通信机制和冲突解决等关键问题。一个良好设计的系统应该具备灵活性、可扩展性和容错能力，能够适应不同的业务场景和需求变化。
